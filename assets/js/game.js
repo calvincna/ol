@@ -65,6 +65,7 @@
 
     var en1pi = 0;
     var en1path = [];
+    var en1dir = "down";
 	
 	var traceOpt = false;
 	var en1Opt = false;
@@ -135,6 +136,9 @@ var Game = {
 		graphicsLine = game.add.graphics(0,0);
 		graphics = game.add.graphics(0, 0);
 		graphics2 = game.add.graphics(0,0);
+		
+		en1bmd = game.add.bitmapData(game.width, game.height);
+        en1bmd.addToWorld();
 
         game.stage.backgroundColor = '#061f27';
         
@@ -158,9 +162,11 @@ var Game = {
 		game.physics.arcade.enable(en1);
 		
 		en1points = {
-			'x': [ 240, 240, 240, 240, 240, 240 ],
-			'y': [ 32, 128, 256, 384, 512, 608 ],
+			//'x': [ 240, 240, 240, 240, 240, 240 ],
+			'x': [ 40, 240, 240, 240, 240, 340 ],
+			'y': [ 32, 128, 256, 384, 512, 588 ],
 		};
+		
 		this.plot();
 		
 		en1.width = en1Size * 1.5;
@@ -172,7 +178,7 @@ var Game = {
 		//en1.body.velocity.setTo(100, 100);
 		//en1.body.bounce.set(1);
 		
-		game.physics.arcade.moveToXY(en1, 300, 300, 60);
+		//game.physics.arcade.moveToXY(en1, 300, 300, 60);
 		
 		var polyPoints = []
 		
@@ -190,11 +196,18 @@ var Game = {
     
     plot: function () {
 
-		//en1bmd.clear();
+		en1bmd.clear();
 
 		en1path = [];
 
 		var x = 1 / game.width;
+		
+		var px = en1points.x;
+
+		for (var i = 1; i < px.length-1; i++)
+		{
+			en1points.x[i] = this.rnd.between(32, 322);
+		}
 
 		for (var i = 0; i <= 1; i += x)
 		{
@@ -219,7 +232,7 @@ var Game = {
 
 			en1path.push( { x: px, y: py });
 
-			//en1bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
+			en1bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
 		}
 
 		//for (var p = 0; p < en1points.x.length; p++)
@@ -243,13 +256,25 @@ var Game = {
 		
 		en1.x = en1path[en1pi].x;
 		en1.y = en1path[en1pi].y;
+		
 
-		en1pi++;
-
-		if (en1pi >= en1path.length)
+		if (en1pi >= en1path.length-1)
 		{
-			en1pi = 0;
+			this.plot();
+			//en1pi = 0;
+			en1dir="up";
+		} else if (en1pi <= 0) {
+			this.plot();
+			en1dir="down";
 		}
+		
+		if (en1dir=="down") {
+			en1pi++;
+		} else {
+			en1pi--;
+		}
+		
+		console.log(en1pi);
 		
 		//if player is out, process movement
 		if (updateDelay % (1) == 0) {
