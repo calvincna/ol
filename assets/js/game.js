@@ -1,89 +1,126 @@
-    //https://calvincna.github.io/sm/new2/index.html?fs=1&en1=0&trace=0&area=0
+//https://calvincna.github.io/sm/new2/index.html?fs=1&en1=0&trace=0&area=0
+
+// variables used to detect and manage swipes
+ var startswX;
+ var startswY;
+ var endswX;
+ var endswY;
+
+var updateDelay = 0;
+
+var mainTop = 0;
+
+var canvasWidth = 400;
+var canvasHeight = 640;
+
+var mainOffsetX = 20;
+var mainOffsetY = 20;
+
+var gStep = 0;
+var gDir = "left";
+
+var mainWidth = canvasWidth - (mainOffsetX);
+var mainHeight = canvasHeight - (mainOffsetY);
+
+var gPoly;
+var graphics;
+var graphicsLine;
+var graphics2;
+var line1;
+var line2;
+
+var en1prevx;
+var en1prevy;
+var en1SpdX = 26;
+var en1SpdY = 26;
+var en1Size = 50;
+
+var pSpd = 3;
+var pSpd2 = 2;
+
+var traceArr = [];
+
+var gArr = [
+  [mainOffsetX, mainOffsetY],
+  [mainWidth, mainOffsetY],
+  [mainWidth, mainHeight],
+  [mainOffsetX, mainHeight]
+];
+
+var background;
+var foreground;
+var player;
+var mode = 0;
+var turn = "down";
+var en1;
+var walls;
+var traces;
+var enemies;
+var areaTxt;
+var collSize = 3;
+var turnMin = 5;
+
+var traceOpt = false;
+var en1Opt = false;
+var fsOpt = false;
+var areaOpt = false;
+
+if	(getParameterByName('trace')) {
+	if (getParameterByName('trace')!="0") {
+		traceOpt = getParameterByName('trace');
+	}
+}
+if	(getParameterByName('en1')) {
+	if (getParameterByName('en1')!="0") {
+		en1Opt = getParameterByName('en1');
+	}
+}
+if	(getParameterByName('fs')) {
+	if (getParameterByName('fs')!="0") {
+		fsOpt = getParameterByName('fs');
+	}
+}
+if	(getParameterByName('area')) {
+	if (getParameterByName('area')!="0") {
+		areaOpt = getParameterByName('area');
+	}
+}
+	
+MonsterBunny = function (game, rotateSpeed) {
+
+    //  We call the Phaser.Sprite passing in the game reference
+    //  We're giving it a random X/Y position here, just for the sake of this demo - you could also pass the x/y in the constructor
+    Phaser.Sprite.call(this, game, game.world.randomX, game.world.randomY, 'en1');
+
+    this.anchor.setTo(0.5, 0.5);
+
+	var rotateSpeed = 4;
+    this.rotateSpeed = rotateSpeed;
+    game.physics.arcade.enable(this);
     
-    // variables used to detect and manage swipes
-     var startswX;
-     var startswY;
-     var endswX;
-     var endswY;
     
-    var updateDelay = 0;
+    var randomVel = game.rnd.between(-100, 100);
+    this.body.velocity.setTo(randomVel, randomVel);
+    this.body.bounce.set(1);
+    
 
-	var mainTop = 0;
-	
-	var canvasWidth = 400;
-	var canvasHeight = 640;
+    //var randomScale = 0.1 + Math.random();
 
-	var mainOffsetX = 20;
-	var mainOffsetY = 20;
-	
-	var gStep = 0;
-	var gDir = "left";
-	
-	var mainWidth = canvasWidth - (mainOffsetX);
-	var mainHeight = canvasHeight - (mainOffsetY);
-	
-	var gPoly;
-	var graphics;
-	var graphicsLine;
-	var graphics2;
-	var line1;
-	var line2;
-	
-	var en1prevx;
-	var en1prevy;
-	var en1SpdX = 26;
-	var en1SpdY = 26;
-	var en1Size = 50;
-	
-	var pSpd = 3;
-	var pSpd2 = 2;
-	
-	var traceArr = [];
-	
-	var gArr = [
-	  [mainOffsetX, mainOffsetY],
-	  [mainWidth, mainOffsetY],
-	  [mainWidth, mainHeight],
-	  [mainOffsetX, mainHeight]
-	];
+   this.scale.setTo(0.6, 0.6);
 
-	var background;
-	var foreground;
-	var player;
-	var mode = 0;
-	var turn = "down";
-	var en1;
-	var walls;
-	var traces;
-	var areaTxt;
-	var collSize = 3;
-	var turnMin = 5;
-	
-	var traceOpt = false;
-	var en1Opt = false;
-	var fsOpt = false;
-	var areaOpt = false;
-	
-	if	(getParameterByName('trace')) {
-		if (getParameterByName('trace')!="0") {
-			traceOpt = getParameterByName('trace');
-		}
-	}
-	if	(getParameterByName('en1')) {
-		if (getParameterByName('en1')!="0") {
-			en1Opt = getParameterByName('en1');
-		}
-	}
-	if	(getParameterByName('fs')) {
-		if (getParameterByName('fs')!="0") {
-			fsOpt = getParameterByName('fs');
-		}
-	}
-	if	(getParameterByName('area')) {
-		if (getParameterByName('area')!="0") {
-			areaOpt = getParameterByName('area');
-		}
-	}
+    game.add.existing(this);
+
+};
+
+MonsterBunny.prototype = Object.create(Phaser.Sprite.prototype);
+MonsterBunny.prototype.constructor = MonsterBunny;
+
+MonsterBunny.prototype.update = function() {
+
+    //  Automatically called by World.update
+    this.angle += this.rotateSpeed;
+
+};
 
 var Game = {
 
@@ -146,6 +183,7 @@ var Game = {
 
 		walls = game.add.group();
 		traces = game.add.group();
+		enemies = game.add.group();
 
 		game.physics.arcade.enable(player);
 		game.physics.arcade.enable(en1);
@@ -158,6 +196,12 @@ var Game = {
 		//this.en1.body.velocity.setTo(250, 250);
 		en1.body.velocity.setTo(100, 100);
 		en1.body.bounce.set(1);
+		
+		for (var i = 0.1; i < 2; i += 0.1)
+		{
+			var enn = new MonsterBunny(game, i);
+			enemies.add(enn);
+		}
 		
 		var polyPoints = []
 		
@@ -181,8 +225,8 @@ var Game = {
 				
     	updateDelay++;
     	
-    	player.anchor.set(0.5);
-		en1.anchor.set(0.5);
+    	player.anchor.setTo(0.5, 0.5);
+		en1.anchor.setTo(0.5, 0.5);
 		en1.angle +=4;
 		
 		//if player is out, process movement
@@ -605,6 +649,7 @@ var Game = {
 		}
 		
 		game.physics.arcade.collide(en1, walls);
+		game.physics.arcade.collide(enemies, walls);
 		
 		//set auto rotate indicator 
 		if (updateDelay % (55) == 0) {
