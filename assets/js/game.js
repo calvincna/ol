@@ -213,7 +213,7 @@ var Game = {
 
 		gPoly = new Phaser.Polygon(polyPoints);
 		
-		areaTxt = game.add.bitmapText(55, 40, 'carrier_command', "100%", 15);
+		areaTxt = game.add.bitmapText(55, 40, 'carrier_command', "100% v1", 15);
 		game.input.onDown.add(this.beginSwipe, this);
     },
 
