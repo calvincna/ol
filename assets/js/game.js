@@ -133,8 +133,14 @@ var Game = {
         
         player = game.add.sprite(mainOffsetX, mainOffsetY, 'player');
 		en1 =  game.add.sprite(mainWidth/2, mainHeight/2, 'en1');
-		pic1 = game.add.sprite(0, 0, 'pic1');
-		pic2 = game.add.sprite(0, 0, 'pic2');
+		pic1 = game.add.sprite(mainOffsetX, mainOffsetY, 'pic1');
+		pic2 = game.add.sprite(mainOffsetX, mainOffsetY, 'pic2');
+		
+		pic1.width = mainWidth - (mainOffsetX);
+		pic1.height = mainHeight - (mainOffsetY);
+		
+		pic2.width = pic1.width;
+		pic2.height = pic1.height;
 		
 		//this.en1 =  this.add.sprite(22, 618, 'en1');
 
