@@ -474,16 +474,19 @@ var Game = {
 						var gPoly2 = new Phaser.Polygon(polyPoints);
 				
 						if (gPoly2.contains(en1.x, en1.y)) {
-							gArr = [];
+							/*gArr = [];
 							for (var i = 0; i <  newPathArr1.length; i++) {
 								gArr.push([newPathArr1[i][0],newPathArr1[i][1]]);
-							}
+							}*/
+							gArr = newPathArr1;
 						} else {
-							gArr = [];
+							/*gArr = [];
 							for (var i = 0; i <  newPathArr2.length; i++) {
 								gArr.push([newPathArr2[i][0],newPathArr2[i][1]]);
-							}
+							}*/
+							gArr = newPathArr2;
 						}
+						
 						//recreate gPoly
 						var polyPoints = []
 	
