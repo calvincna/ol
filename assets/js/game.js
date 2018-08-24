@@ -110,6 +110,8 @@ var Game = {
 		game.load.bitmapFont('carrier_command', './assets/images/carrier_command.png', 'assets/images/carrier_command.xml');
 		game.load.image('wall', './assets/images/bullet11.png');
 		game.load.image('trace', './assets/images/bulletn1.png');
+		game.load.image('pic1', 'assets/images/g1a.png');
+		game.load.image('pic2', 'assets/images/g1b.png');
     },
 
     create : function() {
@@ -131,6 +133,9 @@ var Game = {
         
         player = game.add.sprite(mainOffsetX, mainOffsetY, 'player');
 		en1 =  game.add.sprite(mainWidth/2, mainHeight/2, 'en1');
+		pic1 = game.add.sprite(0, 0, 'pic1');
+		pic2 = game.add.sprite(0, 0, 'pic2');
+		
 		//this.en1 =  this.add.sprite(22, 618, 'en1');
 
 		walls = game.add.group();
@@ -157,6 +162,8 @@ var Game = {
 		}
 
 		gPoly = new Phaser.Polygon(polyPoints);
+		
+		
 		
 		areaTxt = game.add.bitmapText(55, 40, 'carrier_command', "100%", 15);
 		game.input.onDown.add(this.beginSwipe, this);
@@ -546,6 +553,8 @@ var Game = {
 		graphics.beginFill(0xCCCCCC, 0.3);
 		graphics.drawPolygon(gPoly.points);
 		graphics.endFill();
+		
+		pic2.mask = graphics;
 		
         
        	walls.removeAll(true);
