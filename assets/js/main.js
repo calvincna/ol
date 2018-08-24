@@ -9,4 +9,4 @@ game.state.add('Menu', Menu);
 // Adding the Game state.
 game.state.add('Game', Game);
 
-game.state.start('Menu');
+game.state.start('Game');

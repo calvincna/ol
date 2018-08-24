@@ -59,13 +59,6 @@
 	var collSize = 3;
 	var turnMin = 5;
 	
-	var en1points;
-	var en1bmd = null;
-
-
-    var en1pi = 0;
-    var en1path = [];
-	
 	var traceOpt = false;
 	var en1Opt = false;
 	var fsOpt = false;
@@ -140,14 +133,14 @@ var Game = {
         
         player = game.add.sprite(mainOffsetX, mainOffsetY, 'player');
 		en1 =  game.add.sprite(mainWidth/2, mainHeight/2, 'en1');
-		//pic1 = game.add.sprite(mainOffsetX, mainOffsetY, 'pic1');
-		//pic2 = game.add.sprite(mainOffsetX, mainOffsetY, 'pic2');
+		pic1 = game.add.sprite(mainOffsetX, mainOffsetY, 'pic1');
+		pic2 = game.add.sprite(mainOffsetX, mainOffsetY, 'pic2');
 		
-		//pic1.width = mainWidth - mainOffsetX;
-		//pic1.height = mainHeight - mainOffsetY;
+		pic1.width = mainWidth - mainOffsetX;
+		pic1.height = mainHeight - mainOffsetY;
 		
-		//pic2.width = pic1.width;
-		//pic2.height = pic1.height;
+		pic2.width = pic1.width;
+		pic2.height = pic1.height;
 		
 		//this.en1 =  this.add.sprite(22, 618, 'en1');
 
@@ -157,22 +150,14 @@ var Game = {
 		game.physics.arcade.enable(player);
 		game.physics.arcade.enable(en1);
 		
-		en1points = {
-			'x': [ 240, 240, 240, 240, 240, 240 ],
-			'y': [ 32, 128, 256, 384, 512, 608 ],
-		};
-		this.plot();
-		
 		en1.width = en1Size * 1.5;
 		en1.height = en1.width;
 
 		// this.player.body.collideWorldBounds = true;
 		en1.body.collideWorldBounds = true;
 		//this.en1.body.velocity.setTo(250, 250);
-		//en1.body.velocity.setTo(100, 100);
-		//en1.body.bounce.set(1);
-		
-		game.physics.arcade.moveToXY(en1, 300, 300, 60);
+		en1.body.velocity.setTo(100, 100);
+		en1.body.bounce.set(1);
 		
 		var polyPoints = []
 		
@@ -187,47 +172,6 @@ var Game = {
 		areaTxt = game.add.bitmapText(55, 40, 'carrier_command', "100%", 15);
 		game.input.onDown.add(this.beginSwipe, this);
     },
-    
-    plot: function () {
-
-		//en1bmd.clear();
-
-		en1path = [];
-
-		var x = 1 / game.width;
-
-		for (var i = 0; i <= 1; i += x)
-		{
-			var px = game.math.catmullRomInterpolation(en1points.x, i);
-			var py = game.math.catmullRomInterpolation(en1points.y, i);
-				
-			/*if (this.mode === 0)
-			{
-				var px = this.math.linearInterpolation(this.points.x, i);
-				var py = this.math.linearInterpolation(this.points.y, i);
-			}
-			else if (this.mode === 1)
-			{
-				var px = this.math.bezierInterpolation(this.points.x, i);
-				var py = this.math.bezierInterpolation(this.points.y, i);
-			}
-			else if (this.mode === 2)
-			{
-				var px = this.math.catmullRomInterpolation(this.points.x, i);
-				var py = this.math.catmullRomInterpolation(this.points.y, i);
-			}*/
-
-			en1path.push( { x: px, y: py });
-
-			//en1bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
-		}
-
-		//for (var p = 0; p < en1points.x.length; p++)
-		//{
-			//en1bmd.rect(en1points.x[p]-3, en1points.y[p]-3, 6, 6, 'rgba(255, 0, 0, 1)');
-		//}
-
-	},
 
     update: function() {
         //The update function is called constantly at a high rate (somewhere around 60fps)
@@ -240,16 +184,6 @@ var Game = {
     	player.anchor.set(0.5);
 		en1.anchor.set(0.5);
 		en1.angle +=4;
-		
-		en1.x = en1path[en1pi].x;
-		en1.y = en1path[en1pi].y;
-
-		en1pi++;
-
-		if (en1pi >= en1path.length)
-		{
-			en1pi = 0;
-		}
 		
 		//if player is out, process movement
 		if (updateDelay % (1) == 0) {
@@ -624,7 +558,7 @@ var Game = {
 		graphics.drawPolygon(gPoly.points);
 		graphics.endFill();
 		
-		//pic2.mask = graphics;
+		pic2.mask = graphics;
 		
         
        	walls.removeAll(true);
