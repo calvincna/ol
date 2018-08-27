@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>OP</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <style>
+    body {
+        margin: 0;
+        background: #061f27 url(img/screen-bg.png) repeat;
+    }
+    </style>
+    <script src="cordova.js"></script>    
+    <script src="assets/js/phaser.min.js"></script>
+    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/game.js"></script>
+    <script src="assets/js/game_over.js"></script>
+</head>
+
+<body>
+    <script>
+    
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+		// Cocoon Canvas+ code here
+	
+		
+			var canvasWidth = 420;
+			var canvasHeight = 720;
+			var game = new Phaser.Game(canvasWidth, canvasHeight, Phaser.CANVAS, 'game');
+
+			// First parameter is how our state will be called.
+			// Second parameter is an object containing the needed methods for state functionality
+			game.state.add('Menu', Menu);
+
+			// Adding the Game state.
+			game.state.add('Game', Game);
+
+			game.state.start('Menu');
+}  
+
+
+/*    document.addEventListener("deviceready", function() {
+        setTimeout(function() {
+            navigator.splashscreen.hide();
+        }, 5000, false);
+    });
+    (function() {
+    
+    
+    
+		//var canvasWidth = 400;
+		//var canvasHeight = 640;
+		var game = new Phaser.Game(canvasWidth, canvasHeight, Phaser.AUTO, 'game');
+
+		// First parameter is how our state will be called.
+		// Second parameter is an object containing the needed methods for state functionality
+		game.state.add('Menu', Menu);
+
+		// Adding the Game state.
+		game.state.add('Game', Game);
+
+		game.state.start('Menu');
+		
+		
+		var game = new Phaser.Game(320, 480, Phaser.CANVAS, 'game');
+        game.state.add('Boot', Ball.Boot);
+        game.state.add('Preloader', Ball.Preloader);
+        game.state.add('MainMenu', Ball.MainMenu);
+        game.state.add('Howto', Ball.Howto);
+        game.state.add('Game', Ball.Game);
+        game.state.start('Boot');
+
+
+    })();*/
+    </script>
+</body>
+
+</html>
