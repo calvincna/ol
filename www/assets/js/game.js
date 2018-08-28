@@ -13,8 +13,8 @@ var mainTop = 0;
 
 //var canvasWidth = 420;
 	//var canvasHeight = 720;
-	var canvasWidth = 320;
-	var canvasHeight = 480;
+	var canvasWidth = 640;
+	var canvasHeight = 960;
 
 var mainOffsetX = 20;
 var mainOffsetY = 60;
