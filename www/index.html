@@ -8,7 +8,8 @@
     <style>
     body {
         margin: 0;
-        background: #061f27 url(img/screen-bg.png) repeat;
+        background-color: #061f27;
+        /*background: #061f27 url(img/screen-bg.png) repeat;*/
     }
     </style>
     <script src="cordova.js"></script>    
@@ -23,21 +24,57 @@
     
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-		// Cocoon Canvas+ code here
-	
 		
-			var canvasWidth = 420;
-			var canvasHeight = 720;
-			var game = new Phaser.Game(canvasWidth, canvasHeight, Phaser.CANVAS, 'game');
+	//var canvasWidth = 420;
+	//var canvasHeight = 720;
+	var canvasWidth = 640;
+	var canvasHeight = 960;
+	var game = new Phaser.Game(canvasWidth, canvasHeight, Phaser.CANVAS, 'game');
 
-			// First parameter is how our state will be called.
-			// Second parameter is an object containing the needed methods for state functionality
-			game.state.add('Menu', Menu);
+	// First parameter is how our state will be called.
+	// Second parameter is an object containing the needed methods for state functionality
+	game.state.add('Menu', Menu);
 
-			// Adding the Game state.
-			game.state.add('Game', Game);
+	// Adding the Game state.
+	game.state.add('Game', Game);
 
-			game.state.start('Menu');
+	game.state.start('Menu');
+	
+	/*
+	//get the installed plugin instance
+	var service = Cocoon.Ad;
+
+	//multiplatform default configuration
+	service.configure({
+		ios: {
+			appId: "ca-app-pub-7686972479101507~4862506278",
+			banner: "ca-app-pub-7686972479101507/5518752672",
+			interstitial: "ca-app-pub-7686972479101507/7135086675",
+			rewardedVideo: "ca-app-pub-7686972479101507/6843838743",
+			personalizedAdsConsent: false,
+		},
+		android: {
+			//appId: "ca-app-pub-2469801941701847~5543139712",
+			//banner: "ca-app-pub-2469801941701847/5722678082",
+			banner: "ca-app-pub-3940256099942544/6300978111",
+			
+		}
+	});
+
+	//Create banner: optional AdUnit and BannerSize arguments
+	var banner = service.createBanner();
+	banner.show();
+	
+
+	//Configure banner listeners
+	banner.on("load", function(){
+	
+		//alert("Banner loaded " + banner.width, banner.height);
+		//console.log("Banner loaded " + banner.width, banner.height);
+		banner.setLayout(Cocoon.Ad.BannerLayout.BOTTOM_CENTER);
+		banner.show();
+	});
+	banner.load();*/
 }  
 
 
@@ -47,8 +84,6 @@ function onDeviceReady() {
         }, 5000, false);
     });
     (function() {
-    
-    
     
 		//var canvasWidth = 400;
 		//var canvasHeight = 640;
