@@ -145,16 +145,14 @@ var Game = {
 			this.game.scale.pageAlignVertically = true;
 		}*/
         // Here we load all the needed resources for the level.
-        this.game.load.image('background', './assets/images/back.png');
-		//this.load.image('foreground', 'assets/images/fore.png');
+        /*this.game.load.image('background', './assets/images/back.png');
 		this.game.load.image('player', './assets/images/cr.png');
 		this.game.load.image('en1', './assets/images/en1.png');
-		//this.load.bitmapFont('shmupfont', 'assets/images/shmupfont.png', 'assets/images/shmupfont.xml');
 		this.game.load.bitmapFont('carrier_command', './assets/images/carrier_command.png', 'assets/images/carrier_command.xml');
 		this.game.load.image('wall', './assets/images/bullet11.png');
 		this.game.load.image('trace', './assets/images/bulletn1.png');
 		this.game.load.image('pic1', 'assets/images/g1a.png');
-		this.game.load.image('pic2', 'assets/images/g1b.png');
+		this.game.load.image('pic2', 'assets/images/g1b.png');*/
     },
 
     create : function() {

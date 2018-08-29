@@ -12,8 +12,10 @@
         /*background: #061f27 url(img/screen-bg.png) repeat;*/
     }
     </style>
-    <script src="cordova.js"></script>    
+    <!--script src="cordova.js"></script-->    
     <script src="assets/js/phaser.min.js"></script>
+    <script src="assets/js/start.js"></script>
+    <script src="assets/js/preloader.js"></script>
     <script src="assets/js/menu.js"></script>
     <script src="assets/js/game.js"></script>
     <script src="assets/js/game_over.js"></script>
@@ -22,25 +24,32 @@
 <body>
     <script>
     
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady() {
+//document.addEventListener("deviceready", onDeviceReady, false);
+//function onDeviceReady() {
 		
 	//var canvasWidth = 420;
 	//var canvasHeight = 720;
 	var canvasWidth = 640;
 	var canvasHeight = 960;
+	
+	canvasWidth = window.screen.availWidth * window.devicePixelRatio;
+canvasHeight = window.screen.availHeight * window.devicePixelRatio;
+
+
 	var game = new Phaser.Game(canvasWidth, canvasHeight, Phaser.CANVAS, 'game');
 
 	// First parameter is how our state will be called.
 	// Second parameter is an object containing the needed methods for state functionality
+	game.state.add('Start', Start);
+	game.state.add('Preloader', Preloader);
 	game.state.add('Menu', Menu);
 
 	// Adding the Game state.
 	game.state.add('Game', Game);
 
-	game.state.start('Menu');
+	game.state.start('Start');
 	
-	
+	/*
 	//get the installed plugin instance
 	var service = Cocoon.Ad;
 
@@ -75,8 +84,8 @@ function onDeviceReady() {
 		banner.setLayout(Cocoon.Ad.BannerLayout.BOTTOM_CENTER);
 		banner.show();
 	});
-	banner.load();
-}  
+	banner.load();*/
+//}  
 
 
 /*    document.addEventListener("deviceready", function() {

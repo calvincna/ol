@@ -2,9 +2,17 @@ var Menu = {
 
     preload : function() {
     	if (!fsOpt) {
-			this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    	
+    	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+				this.game.width=window.innerWidth
+				this.game.height=window.innerHeight
+				this.scale.pageAlignHorizontally = true
+				this.scale.pageAlignVertically = true
+				this.scale.refresh()
+				
+			/*this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 			this.game.scale.pageAlignHorizontally = true;
-			this.game.scale.pageAlignVertically = true;
+			this.game.scale.pageAlignVertically = true;*/
 		}
         // Load all the needed resources for the menu.
         this.game.load.image('menu', './assets/images/menu.png');
